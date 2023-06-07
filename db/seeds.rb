@@ -1,18 +1,25 @@
 require 'faker'
 
+# Limpiar base de datos
+Pelicula.destroy_all
+Cliente.destroy_all
+
 # Crear películas de muestra
 10.times do
-  Pelicula.create(titulo: Faker::Movie.title)
+  titulo = Faker::Movie.title
+  Pelicula.find_or_create_by(titulo: titulo)
 end
 
 # Crear clientes de muestra y asignar películas arrendadas
 10.times do
-  cliente = Cliente.create(nombre: Faker::Name.name)
-  peliculas_arrendadas = Pelicula.all.sample(4)  # Seleccionar 3 películas al azar como películas arrendadas
+  nombre = Faker::Name.name
+  cliente = Cliente.find_or_create_by(nombre: nombre)
+  peliculas_arrendadas = Pelicula.all.sample(4)
   peliculas_arrendadas.each do |pelicula|
-    Arriendo.create(cliente: cliente, pelicula: pelicula)
+    cliente.arriendos.find_or_create_by(pelicula: pelicula)
   end
 end
+
 
 
 
