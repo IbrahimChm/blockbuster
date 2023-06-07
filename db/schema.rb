@@ -10,18 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_07_012443) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_06_215917) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "arriendo_peliculas", force: :cascade do |t|
-    t.bigint "cliente_id", null: false
-    t.bigint "pelicula_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cliente_id"], name: "index_arriendo_peliculas_on_cliente_id"
-    t.index ["pelicula_id"], name: "index_arriendo_peliculas_on_pelicula_id"
-  end
 
   create_table "arriendos", force: :cascade do |t|
     t.bigint "cliente_id", null: false
@@ -36,18 +27,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_012443) do
     t.string "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "pelicula_ids"
   end
 
   create_table "peliculas", force: :cascade do |t|
     t.string "titulo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "genero"
   end
 
-  add_foreign_key "arriendo_peliculas", "clientes"
-  add_foreign_key "arriendo_peliculas", "peliculas"
   add_foreign_key "arriendos", "clientes"
   add_foreign_key "arriendos", "peliculas"
 end

@@ -10,3 +10,17 @@
   <p>No tiene películas arrendadas.</p>
 <% end %>
 
+<h2>Agregar Película Arrendada</h2>
+
+<%= form_with(model: @arriendo_pelicula, url: agregar_pelicula_cliente_path(@cliente), local: true) do |form| %>
+  <div class="field">
+    <%= form.label :pelicula_id %>
+    <%= form.collection_select :pelicula_id, Pelicula.all, :id, :titulo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Agregar' %>
+  </div>
+<% end %>
+
+

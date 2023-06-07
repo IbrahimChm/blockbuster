@@ -4,7 +4,14 @@
   <h2>Clientes encontrados</h2>
   <ul>
     <% @clientes.each do |cliente| %>
-      <li><%= cliente.nombre %></li>
+      <li>
+        <%= cliente.nombre %>
+        <% if cliente.peliculas_arrendadas.present? %>
+          (Películas arrendadas: <%= cliente.peliculas_arrendadas.pluck(:titulo).join(", ") %>)
+        <% else %>
+          (No ha arrendado películas)
+        <% end %>
+      </li>
     <% end %>
   </ul>
 <% else %>
@@ -15,7 +22,14 @@
   <h2>Películas encontradas</h2>
   <ul>
     <% @peliculas.each do |pelicula| %>
-      <li><%= pelicula.titulo %></li>
+      <li>
+        <%= pelicula.titulo %>
+        <% if pelicula.clientes.present? %>
+          (Arrendada por: <%= pelicula.clientes.pluck(:nombre).join(", ") %>)
+        <% else %>
+          (No ha sido arrendada)
+        <% end %>
+      </li>
     <% end %>
   </ul>
 <% else %>
@@ -23,3 +37,5 @@
 <% end %>
 
 <p><%= link_to 'Volver', clientes_path %></p>
+
+

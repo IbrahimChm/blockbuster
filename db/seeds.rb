@@ -10,9 +10,11 @@ end
   cliente = Cliente.create(nombre: Faker::Name.name)
   peliculas_arrendadas = Pelicula.all.sample(4)  # Seleccionar 3 películas al azar como películas arrendadas
   peliculas_arrendadas.each do |pelicula|
-    cliente.arriendo_peliculas.create(pelicula: pelicula)
+    Arriendo.create(cliente: cliente, pelicula: pelicula)
   end
 end
+
+
 
 
 

@@ -32,14 +32,16 @@ class ClientesController < ApplicationController
       render :edit
     end
   end
-  
-  def buscar
-      @clientes = Cliente.where("nombre LIKE ?", "%#{params[:query]}%")
-      @peliculas = Pelicula.where("titulo LIKE ?", "%#{params[:query]}%")
-  
-  end
 
+  def buscar
+    query = params[:query]
+    @clientes = Cliente.left_outer_joins(:arriendos)
+                       .select('clientes.*, arriendos.id AS arriendo_id, arriendos.pelicula_id AS pelicula_arrendada_id')
+                       .where("clientes.nombre ILIKE :query OR arriendos.pelicula_id IN (SELECT id FROM peliculas WHERE titulo ILIKE :query)", query: "%#{query}%")
+    @peliculas = Pelicula.where("titulo ILIKE :query", query: "%#{query}%")
+  end
   
+
   def destroy
     @cliente = Cliente.find(params[:id])
     @cliente.destroy
@@ -48,16 +50,34 @@ class ClientesController < ApplicationController
 
   def peliculas_arrendadas
     @cliente = Cliente.find(params[:id])
-    @arriendos = @cliente.peliculas_arrendadas
+    @arriendos = @cliente.arriendos.includes(:pelicula) # Incluye las películas en la consulta
+    @arriendo_pelicula = Arriendo.new(cliente_id: @cliente.id) # Utiliza el modelo Arriendo en lugar de ArriendoPelicula
+  end
+  
+  def agregar_pelicula
+    @cliente = Cliente.find(params[:id])
+    @arriendo_pelicula = @cliente.arriendos.build(agregar_pelicula_params)
+    if @arriendo_pelicula.save
+      redirect_to peliculas_arrendadas_cliente_path(@cliente), notice: 'Película agregada correctamente.'
+    else
+      render :peliculas_arrendadas
+    end
+  end
+  
+  private
+  
+  def agregar_pelicula_params
+    params.require(:arriendo).permit(:pelicula_id) # Cambia :arriendo_pelicula por :arriendo
   end
 
-  private
-
   def cliente_params
-  params.require(:cliente).permit(:nombre, pelicula_ids: [])
-end
+    params.require(:cliente).permit(:nombre, pelicula_ids: [])
+  end
 
-  
+  def arriendo_pelicula_params
+    params.require(:arriendo).permit(:pelicula_id)
+  end
+
 end
 
 

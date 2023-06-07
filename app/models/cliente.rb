@@ -1,8 +1,5 @@
 class Cliente < ApplicationRecord
-  has_many :arriendo_peliculas
-  has_many :peliculas_arrendadas, through: :arriendo_peliculas, source: :pelicula
-  
+  has_many :arriendos, dependent: :destroy
+  has_many :peliculas_arrendadas, through: :arriendos, source: :pelicula
   validates :nombre, presence: true
 end
-
-
