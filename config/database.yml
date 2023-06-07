@@ -16,4 +16,4 @@ test:
 
 production:
   <<: *default
-  database: proyecto_arriendos_production
+  url: <%= ENV['DATABASE_URL'] %>
