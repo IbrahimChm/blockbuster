@@ -1,0 +1,12 @@
+<h1>Películas Arrendadas por <%= @cliente.nombre %></h1>
+
+<% if @arriendos.any? %>
+  <ul>
+    <% @arriendos.each do |arriendo| %>
+      <li><%= arriendo.pelicula.titulo %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No tiene películas arrendadas.</p>
+<% end %>
+

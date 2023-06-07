@@ -1,0 +1,9 @@
+<h1>Eliminar Cliente</h1>
+
+<p>¿Estás seguro de eliminar al siguiente cliente?</p>
+<p><strong>Nombre:</strong> <%= @cliente.nombre %></p>
+
+<%= form_with(model: @cliente, url: cliente_path(@cliente), method: :delete, local: true) do |form| %>
+  <%= form.submit 'Eliminar', class: 'btn btn-danger' %>
+<% end %>
+

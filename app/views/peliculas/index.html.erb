@@ -1,0 +1,32 @@
+<h1>Listado de Películas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @peliculas.each do |pelicula| %>
+      <tr>
+        <td><%= pelicula.titulo %></td>
+        <td>
+          <%= link_to 'Editar', edit_pelicula_path(pelicula), class: 'btn btn-primary' %>
+          <%= link_to 'Eliminar', pelicula_path(pelicula), method: :delete, data: { confirm: '¿Estás seguro de eliminar esta película?' }, class: 'btn btn-danger' %>
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><%= link_to 'Agregar nueva película', new_pelicula_path, class: 'btn btn-success' %></p>
+
+
+
+
+
+
+
+

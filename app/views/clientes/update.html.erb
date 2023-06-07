@@ -1,0 +1,22 @@
+<h1>Editar Cliente</h1>
+
+<%= form_with(model: @cliente, url: cliente_path(@cliente), method: :patch) do |form| %>
+  <div>
+    <%= form.label :nombre %>
+    <%= form.text_field :nombre %>
+  </div>
+
+  <div>
+    <%= form.label :pelicula_ids, "Películas arrendadas" %>
+    <%= form.collection_select :pelicula_ids, Pelicula.all, :id, :titulo, {}, { multiple: true } %>
+  </div>
+
+  <div>
+    <%= form.submit 'Guardar' %>
+  </div>
+<% end %>
+
+<p><%= link_to 'Volver al listado', clientes_path %></p>
+
+
+

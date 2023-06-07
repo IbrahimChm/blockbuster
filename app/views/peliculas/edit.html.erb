@@ -1,0 +1,22 @@
+<%= form_with(model: @pelicula, url: pelicula_path(@pelicula), method: :patch) do |form| %>
+  <% if @pelicula.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pelicula.errors.count, "error") %> prohibited this pelicula from being saved:</h2>
+      <ul>
+        <% @pelicula.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :titulo %>
+    <%= form.text_field :titulo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Actualizar Película', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+

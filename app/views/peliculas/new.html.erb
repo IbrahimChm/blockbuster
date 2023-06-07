@@ -1,0 +1,7 @@
+<h1>Agregar nueva película</h1>
+
+<%= form_with(model: @pelicula, url: peliculas_path) do |form| %>
+  <%= form.label :titulo %>
+  <%= form.text_field :titulo %>
+  <%= form.submit 'Guardar' %>
+<% end %>

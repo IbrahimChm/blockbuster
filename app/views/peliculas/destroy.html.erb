@@ -1,0 +1,8 @@
+<h1>Eliminar Película</h1>
+
+<p>¿Estás seguro de eliminar la siguiente película?</p>
+<p><strong>Título:</strong> <%= @pelicula.titulo %></p>
+
+<%= form_with(model: @pelicula, url: pelicula_path(@pelicula), method: :delete, local: true) do |form| %>
+  <%= form.submit 'Eliminar', class: 'btn btn-danger' %>
+<% end %>
