@@ -35,12 +35,16 @@ class PeliculasController < ApplicationController
   end
   
   def destroy
-    @pelicula = Pelicula.find(params[:id])
-    @pelicula.destroy
-    redirect_to peliculas_url, notice: 'Película eliminada exitosamente.'
+    pelicula = Pelicula.find(params[:id])
+
+    # Eliminar los registros de arriendo relacionados con la película
+    Arriendo.where(pelicula_id: pelicula.id).destroy_all
+
+    # Eliminar la película
+    pelicula.destroy
+
+    redirect_to peliculas_path
   end
-  
-  
 
   private
 
