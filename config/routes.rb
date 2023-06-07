@@ -7,13 +7,8 @@ Rails.application.routes.draw do
   resources :peliculas
 
   get '/buscar', to: 'clientes#buscar', as: 'buscar'
-  
-  resources :clientes do
-    get 'peliculas_arrendadas', on: :member
-  end
-  
-  
-  
+  get 'clientes/:id/peliculas_arrendadas', to: 'clientes#peliculas_arrendadas', as: 'peliculas_arrendadas_cliente'
+ 
 end
 
 

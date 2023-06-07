@@ -1,0 +1,25 @@
+<h1>Resultados de la búsqueda</h1>
+
+<% if @clientes.present? %>
+  <h2>Clientes encontrados</h2>
+  <ul>
+    <% @clientes.each do |cliente| %>
+      <li><%= cliente.nombre %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No se encontraron clientes.</p>
+<% end %>
+
+<% if @peliculas.present? %>
+  <h2>Películas encontradas</h2>
+  <ul>
+    <% @peliculas.each do |pelicula| %>
+      <li><%= pelicula.titulo %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No se encontraron películas.</p>
+<% end %>
+
+<p><%= link_to 'Volver', clientes_path %></p>

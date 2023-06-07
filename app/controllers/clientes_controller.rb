@@ -33,6 +33,13 @@ class ClientesController < ApplicationController
     end
   end
   
+  def buscar
+      @clientes = Cliente.where("nombre LIKE ?", "%#{params[:query]}%")
+      @peliculas = Pelicula.where("titulo LIKE ?", "%#{params[:query]}%")
+  
+  end
+
+  
   def destroy
     @cliente = Cliente.find(params[:id])
     @cliente.destroy
@@ -47,9 +54,9 @@ class ClientesController < ApplicationController
   private
 
   def cliente_params
-    params.require(:cliente).permit(:nombre, pelicula_ids: [])
-  end
-  
+  params.require(:cliente).permit(:nombre, pelicula_ids: [])
+end
+
   
 end
 
