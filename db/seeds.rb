@@ -1,9 +1,5 @@
 require 'faker'
 
-# Limpiar base de datos
-Pelicula.destroy_all
-Cliente.destroy_all
-
 # Crear películas de muestra
 10.times do
   titulo = Faker::Movie.title
